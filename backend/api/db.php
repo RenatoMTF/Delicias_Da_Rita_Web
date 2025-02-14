@@ -2,8 +2,7 @@
 $host = "localhost";
 $dbname = "delicias_rita";
 $username = "root";
-$password = ""; // Adicione sua senha aqui, se houver
-
+$password = "00"; 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
