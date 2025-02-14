@@ -1,0 +1,18 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+require "db.php";
+
+$method = $_SERVER["REQUEST_METHOD"];
+
+if ($method === "GET") {
+    $stmt = $pdo->query("SELECT * FROM produtos");
+    $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($produtos);
+} elseif ($method === "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco) VALUES (:nome, :preco)");
+    $stmt->execute(["nome" => $data["nome"], "preco" => $data["preco"]]);
+    echo json_encode(["message" => "Produto cadastrado com sucesso!"]);
+}
+?>
